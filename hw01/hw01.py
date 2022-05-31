@@ -68,4 +68,8 @@ def largest_factor(n):
     >>> largest_factor(13) # factor is 1 since 13 is prime
     1
     """
-    "*** YOUR CODE HERE ***"
+    for i in range(1,n):
+        if n % i == 0:
+            j = i
+            i += 1
+    return j
