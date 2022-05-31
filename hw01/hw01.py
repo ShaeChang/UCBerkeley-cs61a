@@ -14,9 +14,9 @@ def a_plus_abs_b(a, b):
     3
     """
     if b < 0:
-        f = a - b
+        f = sub
     else:
-        f = a + b
+        f = add
     return f(a, b)
 
 
@@ -68,7 +68,7 @@ def largest_factor(n):
     >>> largest_factor(13) # factor is 1 since 13 is prime
     1
     """
-    for i in range(1,n):
+    for i in range(1,n//2+1):
         if n % i == 0:
             j = i
             i += 1
