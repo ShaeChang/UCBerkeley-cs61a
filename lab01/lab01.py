@@ -58,15 +58,17 @@ def double_eights(n):
     >>> double_eights(80808080)
     False
     """
-    
+    print("DEBUG: ", n)
     i = 0
     while (n > 0) and (i < 2):
         if n % 10 == 8:
             i += 1
         else:
-            i == 0
+            i = 0
         n = n // 10
     if i == 2:
         return True
     else:
         return False
+
+double_eights(8)
