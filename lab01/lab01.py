@@ -59,3 +59,14 @@ def double_eights(n):
     False
     """
     
+    i = 0
+    while (n > 0) and (i < 2):
+        if n % 10 == 8:
+            i += 1
+        else:
+            i == 0
+        n = n // 10
+    if i == 2:
+        return True
+    else:
+        return False
