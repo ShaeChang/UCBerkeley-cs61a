@@ -10,7 +10,17 @@ def falling(n, k):
     >>> falling(4, 0)
     1
     """
-    "*** YOUR CODE HERE ***"
+    if k == 0:
+        return 1
+    elif k == 1:
+        return n
+    else:
+        product = n
+        i = 1
+        while i < k:
+            product = product * (n - i)
+            i += 1
+        return product
 
 
 def sum_digits(y):
