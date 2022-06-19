@@ -351,7 +351,7 @@ def final_strategy(score, opponent_score):
     This strategy will help me win the game!!!
     """
     # BEGIN PROBLEM 12
-    
+    return 6
     # END PROBLEM 12
 
 ##########################
