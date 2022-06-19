@@ -325,8 +325,9 @@ def picky_piggy_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     returns NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    
-    return 6  # Remove this line once implemented.
+    if picky_piggy(opponent_score) >= cutoff:
+        return 0
+    else: return num_rolls
     # END PROBLEM 10
 
 
@@ -336,17 +337,21 @@ def hog_pile_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     Otherwise, it returns NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 6  # Remove this line once implemented.
+    if picky_piggy(opponent_score) == opponent_score - score:
+        return 0
+    elif picky_piggy(opponent_score) >= cutoff:
+        return 0
+    else: return num_rolls
     # END PROBLEM 11
 
 
 def final_strategy(score, opponent_score):
     """Write a brief description of your final strategy.
 
-    *** YOUR DESCRIPTION HERE ***
+    This strategy will help me win the game!!!
     """
     # BEGIN PROBLEM 12
-    return 6  # Remove this line once implemented.
+    
     # END PROBLEM 12
 
 ##########################
