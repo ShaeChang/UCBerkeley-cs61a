@@ -171,9 +171,14 @@ def protected_secret(password, secret, num_attempts):
         i = 0
         if i <= num_attempts and password_attempt == password:
             print(secret)
+            return protected_secret(password, secret, num_attempts)
         elif i <= num_attempts: 
             i += 1
             print('INCORRECT PASSWORD')
-        else: print('SECRET LOCKED')
-        return protected_secret(password, secret, num_attempts - 1)
+            return protected_secret(password, secret, num_attempts - 1)
+        else: 
+            print('SECRET LOCKED')
+            return protected_secret(password, secret, num_attempts - 1)
     return get_secret
+
+
