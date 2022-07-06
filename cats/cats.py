@@ -30,9 +30,15 @@ def choose(paragraphs, select, k):
     ''
     """
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    count = 0
+    for i in paragraphs:
+        if select(i):
+            count += 1
+            if count-1 == k:
+                return i
+    return ''
     # END PROBLEM 1
-
+# Another way to write it: get_list = [x for x in paragraphs if select(x)], then return get_list[k]
 
 def about(topic):
     """Return a select function that returns whether
@@ -49,7 +55,19 @@ def about(topic):
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    def contain(paragraphs):
+        para = [lower(i) for i in split(remove_punctuation(paragraphs))]
+        for i in para:
+            for j in topic:
+                if i == j:
+                    return True
+
+        # also written as: for i in para\n if (j in topic)
+        # j in topic is a way to return a boolean value indicates whether j is an element in the list
+        # also: return any(x in para for x in topic)
+
+        return False
+    return contain
     # END PROBLEM 2
 
 
@@ -79,7 +97,15 @@ def accuracy(typed, reference):
     typed_words = split(typed)
     reference_words = split(reference)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if not typed_words:
+        if not reference_words:
+            return 100.0
+        return 0.0
+    correct = 0
+    for i in range(min(len(typed_words), len(reference_words))):
+        if typed_words[i] == reference_words[i]:
+            correct += 1
+    return (correct/len(typed_words))*100
     # END PROBLEM 3
 
 
@@ -97,7 +123,7 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    return (len(typed)/5)/(elapsed/60)
     # END PROBLEM 4
 
 
@@ -124,9 +150,19 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    if typed_word in valid_words:
+        return typed_word
+    word = min(valid_words, key=lambda x: diff_function(typed_word, x, limit))
+    if diff_function(typed_word, word, limit) <= limit:
+        return word
+    return typed_word
     # END PROBLEM 5
 
+    # the min func with key is indispensable here, since we have the restrict of order:
+    # "multiple strings have the same lowest difference from typed_word according to the diff_function,
+    # autocorrect should return the string that appears first in valid_words."
+    # min func always return the first element if plenty of them are equally the smallest
+    
 
 def feline_flips(start, goal, limit):
     """A diff function for autocorrect that determines how many letters
@@ -151,9 +187,18 @@ def feline_flips(start, goal, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    if limit == 0:
+        return 1
+    if start == goal:
+        return 0
+    if start == '' or goal == '':
+        return max(len(start), len(goal))
+    if start[0] == goal[0]:
+        return feline_flips(start[1:], goal[1:], limit)
+    return 1 + feline_flips(start[1:], goal[1:], limit-1)
     # END PROBLEM 6
 
+    # key to recursion is to find boundary conditions
 
 def minimum_mewtations(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL.
@@ -172,24 +217,23 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
 
-    if ______________:  # Fill in the condition
+    if limit < 0 or start == '' or goal == '':  # Fill in the condition
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return 0 if limit < 0 else len(start + goal)
         # END
 
-    elif ___________:  # Feel free to remove or add additional cases
+    elif start[0] == goal[0]:  # Feel free to remove or add additional cases
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return minimum_mewtations(start[1:], goal[1:], limit)
         # END
 
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
+        add = 1 + minimum_mewtations(start, goal[1:], limit - 1)
+        remove = 1 + minimum_mewtations(start[1:], goal, limit - 1)
+        substitute = 1 + minimum_mewtations(start[1:], goal[1:], limit - 1)
         # BEGIN
-        "*** YOUR CODE HERE ***"
+    return min(add, remove, substitute)
         # END
 
 
